@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Slava</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+<div>
+  <form action="#">
+    <button class="clear">clear</button>
+
+    <label>scatter
+      <input type="range" min="0" max="100" step="1" value="0" class="scatter">
+    </label>
+    <label>gravity
+      <input type="range" min="0" max="50" step="1" value="2" class="gravity">
+    </label>
+    <label>consistency
+      <input type="range" min="1" max="50" step="1" value="4" class="consistency">
+    </label>
+    <label>pollock
+      <input type="checkbox" class="pollock">
+    </label>
+    <label>burst
+      <input type="checkbox" class="burst" checked>
+    </label>
+    <label>shade
+      <input type="checkbox" class="shade" checked>
+    </label>
+    <button class="save">save</button>
+    <a download="splat.png" class="download">download</a>
+  </form>
+</div>
+<script src = "main.js"></script>
+</div>
+</body>
+</html>
