@@ -94,7 +94,7 @@ function circle(x, y, s, c) {
 
 canvas.onmousedown = function(e) {
 
-  download.style.display = 'none'
+  //download.style.display = 'none'
 
   if (!focused) {
     focused = true;
@@ -156,7 +156,7 @@ window.onblur = function() {
 
 
 
-
+/*
 var form = document.querySelector('form')
 var download = form.querySelector('.download')
 
@@ -172,43 +172,12 @@ form.querySelector('.clear').onclick = function() {
 
   sctx.clearRect(0, 0, canvas.width, canvas.height)
 
-}
-form.querySelector('.save').onclick = function(e) {
+};
+*/
 
-  download.href = canvas.toDataURL()
-  download.style.display = 'inline'
+let AK = document.getElementById('aykay');
+const onMouseMove = (e) =>{
+  AK.style.top = e.pageY + 'px';
+};
 
-}
-form.querySelector('.scatter').onchange = function() {
-
-  options.scatter = this.value / 100 || 0
-
-}
-form.querySelector('.gravity').onchange = function() {
-
-  options.gravity = this.value / 100 || 0
-
-}
-form.querySelector('.consistency').onchange = function() {
-
-  options.consistency = this.value / 100 || 0
-
-}
-form.querySelector('.pollock').onchange = function() {
-
-
-  options.pollock = this.checked
-
-}
-form.querySelector('.burst').onchange = function() {
-
-
-  options.burst = this.checked
-
-}
-form.querySelector('.shade').onchange = function() {
-
-
-  options.shade = this.checked
-
-}
+document.addEventListener('mousemove', onMouseMove);
