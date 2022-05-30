@@ -92,9 +92,15 @@ function circle(x, y, s, c) {
 
 }
 
-canvas.onmousedown = function(e) {
+canvas.onclick = function(e) {
+    console.log('hey')
+    playAKSound();
+    let AK = document.getElementById('aykay');
+    AK.src = "finaltest3.png"
+    setTimeout(function() {
+        AK.src = "finaltest2.png"
+      }, 100)
 
-  //download.style.display = 'none'
 
   if (!focused) {
     focused = true;
@@ -118,17 +124,16 @@ canvas.onmousedown = function(e) {
     splat(mouse.x, mouse.y, items)
 
   }
-
-
 }
 
+/*
 canvas.onmouseup = function() {
-
+    
   clicked = false;
   mouse.dx = mouse.dy = 0
 
 }
-
+*/
 canvas.onmousemove = function(e) {
 
   if (clicked) {
@@ -137,8 +142,8 @@ canvas.onmousemove = function(e) {
     mouse = {
       x: e.pageX,
       y: e.pageY,
-      dx: (Math.abs(distx) > 10) ? -1 : distx,
-      dy: (Math.abs(disty) > 10) ? -1 : disty,
+      dx: (Math.abs(distx) > 10) ? -10 : distx,
+      dy: (Math.abs(disty) > 10) ? -10 : disty,
       px: mouse.x,
       py: mouse.y
     }
@@ -147,14 +152,14 @@ canvas.onmousemove = function(e) {
   }
 
 }
-
+/*
 window.onblur = function() {
 
   focused = false;
 
 }
 
-
+*/
 
 /*
 var form = document.querySelector('form')
@@ -167,7 +172,9 @@ form.onsubmit = function(e) {
   e.preventDefault()
 
 }
-
+*/
+/*
+var form = document.querySelector('form')
 form.querySelector('.clear').onclick = function() {
 
   sctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -175,9 +182,18 @@ form.querySelector('.clear').onclick = function() {
 };
 */
 
-let AK = document.getElementById('aykay');
+
 const onMouseMove = (e) =>{
-  AK.style.top = e.pageY + 'px';
+    let AK = document.getElementById('aykay');
+    AK.style.top = e.pageY + 'px';
 };
+
+function playAKSound() {
+    gameAudio = new Audio('AKSound.mp3')
+    gameAudio.play()
+    gameAudio.setAttribute("id", "AKSound")
+    gameAudio.loop = false
+    
+}
 
 document.addEventListener('mousemove', onMouseMove);
