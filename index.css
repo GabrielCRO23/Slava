@@ -2,34 +2,43 @@ body {
     margin:0;
     padding:0;
 }
-html, body {
-    width:100%;
-    height:100%;
-    
-    
-    cursor: not-allowed
+body {
+     width: 100vw;
+     height: 100vh;
+     
 }
+
 #canvas {
     display: block;
     
-    min-height: 100%;
-    min-width: 100%;
+    height: 100vh;
+    width: 100vw;
     background-image: url("pbackground.jpg");
-    background-attachment: fixed;
+    
     background-size: cover;
-    overflow-x: hidden;
+    
     margin: 0;
     cursor: crosshair;
+}
+
+img {
+    -webkit-user-drag: none; 
+   user-select: none;
 }
 
 #aykay {
     position: absolute;
     transform: scaleX(-1);
     width: 200px;
-    height: auto;
-    margin-bottom: 10px;
-    
-    
+    height: auto; 
+}
+
+#aykayfire {
+    display: none;
+    position: absolute;
+    transform: scaleX(-1);
+    width: 200px;
+    height: auto; 
 }
 
 
@@ -44,3 +53,10 @@ label {
     border-right: 1px solid silver;
     display: inline-block;
 }
+/*
+@media (max-width: 1000px) {
+    #canvas {
+        background-size: cover;
+    }
+}
+*/
