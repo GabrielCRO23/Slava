@@ -35,25 +35,34 @@ class Orc {
     constructor(){
         this.spriteWidth = 800;
         this.spriteHeight = 600;
-        this.sizeModifier = Math.random() * 0.6 + 0.4
-        this.width = this.spriteWidth * this.sizeModifier
-        this.height = this.spriteHeight * this.sizeModifier
+       // this.sizeModifier = Math.random() * 0.2 + 0.4
+        this.width = this.spriteWidth/4
+        this.height = this.spriteHeight/4
         this.x = canvas.width
         this.y = Math.random() * (canvas.height - this.height);
-        this.directionX = Math.random() * 5 + 3;
-        this.directionY = Math.random() * 5 - 2.5;
+        this.directionX = Math.random() * 2;
+        //this.directionY = Math.random() * 5 - 2.5;
         this.markedForDeletion = false;
         this.image = new Image();
-        this.image.src = './Sprites/spritesheetfinal.png'
+        this.image.src = './Sprites/rotatedspritesheet.png'
         this.frame = 0;
-        this.maxFrame = 5;
+        this.maxFrame = 8;
+        this.timeSinceStep = 0;
+        this.stepInterval = 100;
         
     }
-    update(){
+    update(deltaTime){
         this.x -= this.directionX;
         if (this.x < 0 - this.width) this.markedForDeletion = true;
-        if (this.frame > this.maxFrame) this.frame = 0;
-        else this.frame++;
+
+        this.timeSinceStep += deltaTime
+        if (this.timeSinceStep > this.stepInterval){
+            if (this.frame > this.maxFrame) this.frame = 0;
+            else this.frame++;  
+            this.timeSinceStep = 0;
+        }
+
+       
         
     }
     draw(){
@@ -74,14 +83,14 @@ function animate(timestamp) {
         timeToNextOrc = 0;
         //console.log(orcs)
     };
-    [...orcs].forEach(object => object.update());
+    [...orcs].forEach(object => object.update(deltaTime));
     [...orcs].forEach(object => object.draw());
     orcs = orcs.filter(object => !object.markedForDeletion)
-    console.log(orcs)
+    
     requestAnimationFrame(animate);
 }
 
-//animate(0)
+animate(0)
 
 
 
