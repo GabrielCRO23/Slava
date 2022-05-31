@@ -2,17 +2,10 @@ import { weaponMover } from "./weaponMover";
 import { playRaygunSound} from "./raygunSound"
 
 
-
-
-
-
-
 var canvas = document.getElementById('canvas');
 var focused = false;
 var ctx = canvas.getContext('2d');
 var clicked = false;
-var shadow = document.createElement('canvas');
-var sctx = shadow.getContext('2d');
 var items = [];
 
 var mouse = {
@@ -33,8 +26,58 @@ var options = {
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+let timeToNextOrc = 0;
+let orcInterval = 500;
+let lastTime = 0;
+
+let orcs = [];
+class Orc {
+    constructor(){
+        this.spriteWidth = 200;
+        this.spriteHeight = 200;
+        this.width = this.spriteWidth/2
+        this.height = this.spriteHeight/2
+        this.x = canvas.width
+        this.y = Math.random() * (canvas.height - this.height);
+        this.directionX = Math.random() * 5 + 3;
+        this.directionY = Math.random() * 5 - 2.5;
+        this.markedForDeletion = false;
+        this.image = new Image();
+        this.image.src = './Sprites/spritesheet1.png'
+        
+    }
+    update(){
+        this.x -= this.directionX;
+        if (this.x < 0 - this.width){
+            this.markedForDeletion = true;
+        }
+    }
+    draw(){
+        ctx.strokeRect(this.x, this.y, this.width, this.height)
+        ctx.drawImage(this.image, 0, 0, this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height);
+    }
+}
 
 
+
+function animate(timestamp) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let deltaTime = timestamp - lastTime
+    lastTime = timestamp;
+    timeToNextOrc += deltaTime
+    if (timeToNextOrc > orcInterval) {
+        orcs.push(new Orc());
+        timeToNextOrc = 0;
+        //console.log(orcs)
+    };
+    [...orcs].forEach(object => object.update());
+    [...orcs].forEach(object => object.draw());
+    orcs = orcs.filter(object => !object.markedForDeletion)
+    console.log(orcs)
+    requestAnimationFrame(animate);
+}
+
+//animate(0)
 
 
 
@@ -43,7 +86,7 @@ function drawloop() {
   if (focused) {
     requestAnimationFrame(drawloop);
   }
-  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  //ctx.clearRect(0, 0, canvas.width, canvas.height)
   drawsplat(items)
 
 }
@@ -85,32 +128,26 @@ function drawsplat(arr) {
     t.size -= 0.05;
 
     if (arr[i].size < 0.3 || Math.random() < options.consistency) {
-      circle(x, y, s, sctx)
+      circle(x, y, s, ctx)
       arr.splice(i, 1)
-
     }
-
   }
-
-  ctx.drawImage(shadow, 0, 0)
-  //sctx.drawImage(shadow, 0, 0.5)
-
+  //ctx.drawImage(shadow, 0, 0)
 }
 
 
 function circle(x, y, s, c) {
-
   c.beginPath()
   c.arc(x, y, s * 5, 0, 2 * Math.PI, false);
   c.fill()
   c.closePath()
-
 }
 
 
 
 
 canvas.onclick = function(e) {
+
     console.log('heyyy')
     playRaygunSound();
     let rayGun = document.getElementById('raygun');
@@ -144,7 +181,7 @@ canvas.onclick = function(e) {
     splat(mouse.x, mouse.y, items)
     
     setTimeout(function() {
-        sctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
       }, 1000)
     
 
@@ -171,37 +208,6 @@ canvas.onmousemove = function(e) {
 }
 
 canvas.addEventListener('mousemove', weaponMover);
-
-
-/*
-window.onblur = function() {
-
-  focused = false;
-
-}
-
-*/
-
-/*
-var form = document.querySelector('form')
-var download = form.querySelector('.download')
-
-form.reset()
-
-form.onsubmit = function(e) {
-
-  e.preventDefault()
-
-}
-*/
-/*
-var form = document.querySelector('form')
-form.querySelector('.clear').onclick = function() {
-
-  sctx.clearRect(0, 0, canvas.width, canvas.height)
-
-};
-*/
 
 
 
