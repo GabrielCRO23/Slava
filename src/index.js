@@ -1,11 +1,20 @@
-var canvas = document.getElementById('canvas'),
-  ctx = canvas.getContext('2d'),
-  focused = false,
-  clicked = false;
-var shadow = document.createElement('canvas'),
-  sctx = shadow.getContext('2d');
+import { weaponMover } from "./weaponMover";
+import { playRaygunSound} from "./raygunSound"
 
+
+
+
+
+
+
+var canvas = document.getElementById('canvas');
+var focused = false;
+var ctx = canvas.getContext('2d');
+var clicked = false;
+var shadow = document.createElement('canvas');
+var sctx = shadow.getContext('2d');
 var items = [];
+
 var mouse = {
   x: 0,
   y: 0,
@@ -14,18 +23,20 @@ var mouse = {
   px: 0,
   py: 0
 };
+
 var options = {
   scatter: 0,
   gravity: 0.2,
   consistency: 0.04,
-  pollock: false,
-  burst: true,
-  shade: true
-
 }
-canvas.width = shadow.width = window.innerWidth;
-canvas.height = shadow.height = window.innerHeight;
-sctx.fillStyle = ctx.fillStyle = '#aa0707'; // rgba(250,0,0,0.1)'
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+
+
+
+
 
 function drawloop() {
 
@@ -36,6 +47,7 @@ function drawloop() {
   drawsplat(items)
 
 }
+
 
 function splat(x, y, arr) {
 
@@ -54,6 +66,8 @@ function splat(x, y, arr) {
   }
 
 }
+
+
 
 function drawsplat(arr) {
 
@@ -83,6 +97,7 @@ function drawsplat(arr) {
 
 }
 
+
 function circle(x, y, s, c) {
 
   c.beginPath()
@@ -92,13 +107,18 @@ function circle(x, y, s, c) {
 
 }
 
+
+
+
 canvas.onclick = function(e) {
-    console.log('hey')
-    playAKSound();
-    let AK = document.getElementById('aykay');
-    AK.src = "finaltest3.png"
+    console.log('heyyy')
+    playRaygunSound();
+    let rayGun = document.getElementById('raygun');
+    rayGun.src = "raygunfin.png"
+
+
     setTimeout(function() {
-        AK.src = "finaltest2.png"
+        rayGun.src = "raygunmodel.png"
       }, 100)
 
 
@@ -108,32 +128,30 @@ canvas.onclick = function(e) {
   } else {
     clicked = true;
 
-    if (options.burst) {
+    
       setTimeout(function() {
         clicked = false
       }, 100)
-    }
+    
 
     mouse.x = e.pageX
     mouse.y = e.pageY
 
-    var redtone = (options.shade) ? 'rgb(' + (130 + (Math.random() * 105 | 0)) + ',0,0)' : '#aa0707';
-    var randomtone = '#' + Math.floor(Math.random() * 16777215).toString(16)
-    sctx.fillStyle = ctx.fillStyle = (options.pollock) ? randomtone : redtone;
+    var greentone = '#07aa15'
+    
+    ctx.fillStyle = greentone;
 
     splat(mouse.x, mouse.y, items)
+    
+    setTimeout(function() {
+        sctx.clearRect(0, 0, canvas.width, canvas.height)
+      }, 1000)
+    
 
   }
 }
 
-/*
-canvas.onmouseup = function() {
-    
-  clicked = false;
-  mouse.dx = mouse.dy = 0
 
-}
-*/
 canvas.onmousemove = function(e) {
 
   if (clicked) {
@@ -150,8 +168,11 @@ canvas.onmousemove = function(e) {
     splat(mouse.x, mouse.y, items)
 
   }
-
 }
+
+canvas.addEventListener('mousemove', weaponMover);
+
+
 /*
 window.onblur = function() {
 
@@ -183,17 +204,6 @@ form.querySelector('.clear').onclick = function() {
 */
 
 
-const onMouseMove = (e) =>{
-    let AK = document.getElementById('aykay');
-    AK.style.top = e.pageY + 'px';
-};
 
-function playAKSound() {
-    gameAudio = new Audio('AKSound.mp3')
-    gameAudio.play()
-    gameAudio.setAttribute("id", "AKSound")
-    gameAudio.loop = false
-    
-}
 
-document.addEventListener('mousemove', onMouseMove);
+
