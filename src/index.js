@@ -90,7 +90,7 @@ function animate(timestamp) {
     requestAnimationFrame(animate);
 }
 
-animate(0)
+//animate(0)
 
 
 
@@ -164,11 +164,11 @@ canvas.onclick = function(e) {
     console.log('heyyy')
     playRaygunSound();
     let rayGun = document.getElementById('raygun');
-    rayGun.src = "raygunfin.png"
+    rayGun.src = "coloredraygunfire.png"
 
 
     setTimeout(function() {
-        rayGun.src = "raygunmodel.png"
+        rayGun.src = "coloredraygun.png"
       }, 100)
 
 
@@ -187,7 +187,7 @@ canvas.onclick = function(e) {
     mouse.x = e.pageX
     mouse.y = e.pageY
 
-    var greentone = '#07aa15'
+    var greentone = '#63aa07'
     
     ctx.fillStyle = greentone;
 
