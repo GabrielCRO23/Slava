@@ -8,6 +8,15 @@ var ctx = canvas.getContext('2d');
 var clicked = false;
 var items = [];
 
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+
+var collisionCanvas = document.getElementById('collisionCanvas');
+var collisionCtx = collisionCanvas.getContext('2d')
+collisionCanvas.width = window.innerWidth;
+collisionCanvas.height = window.innerHeight;
+
 var mouse = {
   x: 0,
   y: 0,
@@ -23,25 +32,30 @@ var options = {
   consistency: 0.04,
 }
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+
 
 let timeToNextOrc = 0;
 let orcInterval = 500;
 let lastTime = 0;
-
 let orcs = [];
+
+//let score = 0;
+//ctx.font = '50px Impact';
+
+
 class Orc {
     constructor(){
         this.spriteWidth = 800;
         this.spriteHeight = 600;
-       // this.sizeModifier = Math.random() * 0.2 + 0.4
-        this.width = this.spriteWidth/4
-        this.height = this.spriteHeight/4
+       this.sizeModifier = Math.random() * 0.2 + 0.4
+       this.width = this.spriteWidth * this.sizeModifier / 3
+       this.height = this.spriteHeight * this.sizeModifier / 3
+        //this.width = this.spriteWidth/4
+        //this.height = this.spriteHeight/4
         this.x = canvas.width
         this.y = Math.random() * (canvas.height - this.height);
-        this.directionX = Math.random() * 2;
-        //this.directionY = Math.random() * 5 - 2.5;
+        this.directionX = Math.random() * 2 + 2;
+        this.directionY = Math.random() * 2;
         this.markedForDeletion = false;
         this.image = new Image();
         this.image.src = './Sprites/rotatedspritesheet.png'
@@ -49,10 +63,18 @@ class Orc {
         this.maxFrame = 8;
         this.timeSinceStep = 0;
         this.stepInterval = 100;
+        this.randomColors = [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255) ]
+        this.color = 'rgb(' + this.randomColors[0] + ',' + this.randomColors[1] + ',' + this.randomColors[2] + ')';
+        
         
     }
     update(deltaTime){
+        if (this.y < 0 || this.y > canvas.height - this.height){
+            this.directionY = this.directionY * -1;
+        }
+
         this.x -= this.directionX;
+        this.y += this.directionY;
         if (this.x < 0 - this.width) this.markedForDeletion = true;
 
         this.timeSinceStep += deltaTime
@@ -66,15 +88,65 @@ class Orc {
         
     }
     draw(){
-        ctx.strokeRect(this.x, this.y, this.width, this.height)
+        collisionCtx.fillStyle = this.color;
+        collisionCtx.fillRect(this.x, this.y, this.width, this.height)
         ctx.drawImage(this.image, this.frame * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height);
     }
 }
 
+window.addEventListener('click', function(e){
+
+  playRaygunSound();
+      let rayGun = document.getElementById('raygun');
+      rayGun.src = "coloredraygunfire.png"
+  
+  
+      setTimeout(function() {
+          rayGun.src = "coloredraygun.png"
+        }, 100)
+
+  const detectPixelColor = collisionCtx.getImageData(e.x, e.y, 1, 1)
+  const pc = detectPixelColor.data;
+  orcs.forEach(object => {
+    if (object.randomColors[0] === pc[0] && object.randomColors[1] === pc[1] && object.randomColors[2] === pc[2]){
+      object.markedForDeletion = true;
+      
+  
+    if (!focused) {
+      focused = true;
+      drawloop();
+    } else {
+      clicked = true;
+  
+      
+        setTimeout(function() {
+          clicked = false
+        }, 100)
+      
+  
+      mouse.x = e.pageX
+      mouse.y = e.pageY
+  
+      var greentone = '#c1c121'
+      
+      ctx.fillStyle = greentone;
+  
+      splat(mouse.x, mouse.y, items)
+      
+      setTimeout(function() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height)
+        }, 1000)
+      
+  
+    }
+    }
+  })
+})
 
 
 function animate(timestamp) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    collisionCtx.clearRect(0, 0, canvas.width, canvas.height);
     let deltaTime = timestamp - lastTime
     lastTime = timestamp;
     timeToNextOrc += deltaTime
@@ -83,6 +155,8 @@ function animate(timestamp) {
         timeToNextOrc = 0;
         //console.log(orcs)
     };
+    // Must be layered behind orcs
+    //makeScore();
     [...orcs].forEach(object => object.update(deltaTime));
     [...orcs].forEach(object => object.draw());
     orcs = orcs.filter(object => !object.markedForDeletion)
@@ -90,7 +164,7 @@ function animate(timestamp) {
     requestAnimationFrame(animate);
 }
 
-//animate(0)
+animate(0)
 
 
 
@@ -156,12 +230,21 @@ function circle(x, y, s, c) {
   c.closePath()
 }
 
+collisionCanvas.addEventListener('click', function(){
+    console.log('hey')
+})
 
+window.addEventListener('click', function(){
+    console.log('hey')
+})
 
+/*
 
 canvas.onclick = function(e) {
+    
 
-    console.log('heyyy')
+
+    
     playRaygunSound();
     let rayGun = document.getElementById('raygun');
     rayGun.src = "coloredraygunfire.png"
@@ -187,7 +270,7 @@ canvas.onclick = function(e) {
     mouse.x = e.pageX
     mouse.y = e.pageY
 
-    var greentone = '#63aa07'
+    var greentone = '#c1c121'
     
     ctx.fillStyle = greentone;
 
@@ -200,7 +283,7 @@ canvas.onclick = function(e) {
 
   }
 }
-
+*/
 
 canvas.onmousemove = function(e) {
 
