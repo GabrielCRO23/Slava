@@ -1,23 +1,29 @@
 import { weaponMover } from "./weaponMover";
 import { playRaygunSound} from "./raygunSound"
+import { Orc } from "./spriteConstructor"
+import { muzzleFire } from "./muzzleFire"
 
 
-var canvas = document.getElementById('canvas');
-var focused = false;
-var ctx = canvas.getContext('2d');
-var clicked = false;
-var items = [];
+let canvas = document.getElementById('canvas');
+let ctx = canvas.getContext('2d');
+let collisionCanvas = document.getElementById('collisionCanvas');
+let collisionCtx = collisionCanvas.getContext('2d');
 
+let items = [];
+
+
+collisionCanvas.width = window.innerWidth;
+collisionCanvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+ctx.font = '50px Impact';
 
-var collisionCanvas = document.getElementById('collisionCanvas');
-var collisionCtx = collisionCanvas.getContext('2d')
-collisionCanvas.width = window.innerWidth;
-collisionCanvas.height = window.innerHeight;
 
-var mouse = {
+let focused = false;
+let clicked = false;
+
+let mouse = {
   x: 0,
   y: 0,
   dx: 0,
@@ -26,7 +32,7 @@ var mouse = {
   py: 0
 };
 
-var options = {
+let options = {
   scatter: 0,
   gravity: 0.2,
   consistency: 0.04,
@@ -38,79 +44,23 @@ let timeToNextOrc = 0;
 let orcInterval = 500;
 let lastTime = 0;
 let orcs = [];
-
-//let score = 0;
-//ctx.font = '50px Impact';
+let kills = 0;
 
 
-class Orc {
-    constructor(){
-        this.spriteWidth = 800;
-        this.spriteHeight = 600;
-       this.sizeModifier = Math.random() * 0.2 + 0.4
-       this.width = this.spriteWidth * this.sizeModifier / 3
-       this.height = this.spriteHeight * this.sizeModifier / 3
-        //this.width = this.spriteWidth/4
-        //this.height = this.spriteHeight/4
-        this.x = canvas.width
-        this.y = Math.random() * (canvas.height - this.height);
-        this.directionX = Math.random() * 2 + 2;
-        this.directionY = Math.random() * 2;
-        this.markedForDeletion = false;
-        this.image = new Image();
-        this.image.src = './Sprites/rotatedspritesheet.png'
-        this.frame = 0;
-        this.maxFrame = 8;
-        this.timeSinceStep = 0;
-        this.stepInterval = 100;
-        this.randomColors = [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255) ]
-        this.color = 'rgb(' + this.randomColors[0] + ',' + this.randomColors[1] + ',' + this.randomColors[2] + ')';
-        
-        
-    }
-    update(deltaTime){
-        if (this.y < 0 || this.y > canvas.height - this.height){
-            this.directionY = this.directionY * -1;
-        }
 
-        this.x -= this.directionX;
-        this.y += this.directionY;
-        if (this.x < 0 - this.width) this.markedForDeletion = true;
 
-        this.timeSinceStep += deltaTime
-        if (this.timeSinceStep > this.stepInterval){
-            if (this.frame > this.maxFrame) this.frame = 0;
-            else this.frame++;  
-            this.timeSinceStep = 0;
-        }
-
-       
-        
-    }
-    draw(){
-        collisionCtx.fillStyle = this.color;
-        collisionCtx.fillRect(this.x, this.y, this.width, this.height)
-        ctx.drawImage(this.image, this.frame * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height);
-    }
-}
 
 window.addEventListener('click', function(e){
 
   playRaygunSound();
-      let rayGun = document.getElementById('raygun');
-      rayGun.src = "coloredraygunfire.png"
+  muzzleFire();
   
-  
-      setTimeout(function() {
-          rayGun.src = "coloredraygun.png"
-        }, 100)
-
   const detectPixelColor = collisionCtx.getImageData(e.x, e.y, 1, 1)
   const pc = detectPixelColor.data;
   orcs.forEach(object => {
     if (object.randomColors[0] === pc[0] && object.randomColors[1] === pc[1] && object.randomColors[2] === pc[2]){
       object.markedForDeletion = true;
-      
+      kills++
   
     if (!focused) {
       focused = true;
@@ -127,9 +77,9 @@ window.addEventListener('click', function(e){
       mouse.x = e.pageX
       mouse.y = e.pageY
   
-      var greentone = '#c1c121'
+      var tone = '#ffffff'
       
-      ctx.fillStyle = greentone;
+      ctx.fillStyle = tone;
   
       splat(mouse.x, mouse.y, items)
       
@@ -144,6 +94,12 @@ window.addEventListener('click', function(e){
 })
 
 
+
+function drawKills(){
+    ctx.fillStyle = "white";
+    ctx.fillText('Kills: ' + kills, canvas.width/2, canvas.height/8)
+}
+
 function animate(timestamp) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     collisionCtx.clearRect(0, 0, canvas.width, canvas.height);
@@ -155,8 +111,8 @@ function animate(timestamp) {
         timeToNextOrc = 0;
         //console.log(orcs)
     };
-    // Must be layered behind orcs
-    //makeScore();
+    // Must be layered behind sprites
+    drawKills();
     [...orcs].forEach(object => object.update(deltaTime));
     [...orcs].forEach(object => object.draw());
     orcs = orcs.filter(object => !object.markedForDeletion)
@@ -229,14 +185,6 @@ function circle(x, y, s, c) {
   c.fill()
   c.closePath()
 }
-
-collisionCanvas.addEventListener('click', function(){
-    console.log('hey')
-})
-
-window.addEventListener('click', function(){
-    console.log('hey')
-})
 
 /*
 
