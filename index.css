@@ -12,6 +12,10 @@ body {
      
 }
 
+#score {
+    position: absolute;
+}
+
 #canvas {
     position: absolute;
     top: 0;
