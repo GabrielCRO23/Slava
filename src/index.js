@@ -1,16 +1,26 @@
-import { weaponMover } from "./weaponMover";
-import { playRaygunSound} from "./raygunSound"
+import { weaponMover } from "./weaponEffect/weaponMover";
+import { playRaygunSound} from "./weaponEffect/raygunSound"
+import { muzzleFire } from "./weaponEffect/muzzleFire"
+
+import { drawloop } from "./splatEffect/drawLoop"
+import { splat } from "./splatEffect/splat"
+
 import { Orc } from "./spriteConstructor"
-import { muzzleFire } from "./muzzleFire"
+
+import { updateScore } from "./updateScore"
 
 
-let canvas = document.getElementById('canvas');
-let ctx = canvas.getContext('2d');
-let collisionCanvas = document.getElementById('collisionCanvas');
-let collisionCtx = collisionCanvas.getContext('2d');
 
-let items = [];
 
+
+window.canvas = document.getElementById('canvas');
+window.ctx = canvas.getContext('2d');
+window.collisionCanvas = document.getElementById('collisionCanvas');
+window.collisionCtx = collisionCanvas.getContext('2d');
+
+window.items = [];
+window.kills = 0;
+window.tone = '#ffffff'
 
 collisionCanvas.width = window.innerWidth;
 collisionCanvas.height = window.innerHeight;
@@ -20,10 +30,10 @@ canvas.height = window.innerHeight;
 ctx.font = '50px Impact';
 
 
-let focused = false;
-let clicked = false;
+window.focused = false;
+window.clicked = false;
 
-let mouse = {
+window.mouse = {
   x: 0,
   y: 0,
   dx: 0,
@@ -32,7 +42,7 @@ let mouse = {
   py: 0
 };
 
-let options = {
+window.options = {
   scatter: 0,
   gravity: 0.2,
   consistency: 0.04,
@@ -44,9 +54,8 @@ let timeToNextOrc = 0;
 let orcInterval = 500;
 let lastTime = 0;
 let orcs = [];
-let kills = 0;
 
-
+canvas.addEventListener('mousemove', weaponMover);
 
 
 
@@ -77,7 +86,6 @@ window.addEventListener('click', function(e){
       mouse.x = e.pageX
       mouse.y = e.pageY
   
-      var tone = '#ffffff'
       
       ctx.fillStyle = tone;
   
@@ -94,12 +102,6 @@ window.addEventListener('click', function(e){
 })
 
 
-
-function drawKills(){
-    ctx.fillStyle = "white";
-    ctx.fillText('Kills: ' + kills, canvas.width/2, canvas.height/8)
-}
-
 function animate(timestamp) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     collisionCtx.clearRect(0, 0, canvas.width, canvas.height);
@@ -112,7 +114,7 @@ function animate(timestamp) {
         //console.log(orcs)
     };
     // Must be layered behind sprites
-    drawKills();
+    updateScore();
     [...orcs].forEach(object => object.update(deltaTime));
     [...orcs].forEach(object => object.draw());
     orcs = orcs.filter(object => !object.markedForDeletion)
@@ -122,116 +124,6 @@ function animate(timestamp) {
 
 animate(0)
 
-
-
-function drawloop() {
-
-  if (focused) {
-    requestAnimationFrame(drawloop);
-  }
-  //ctx.clearRect(0, 0, canvas.width, canvas.height)
-  drawsplat(items)
-
-}
-
-
-function splat(x, y, arr) {
-
-  for (var i = 0; i < 30; i++) {
-    var s = Math.random() * Math.PI;
-    var dirx = (((Math.random() < .5) ? 3 : -3) * (Math.random() * 3)) * options.scatter;
-    var diry = (((Math.random() < .5) ? 3 : -3) * (Math.random() * 3)) * options.scatter;
-
-    arr.push({
-      x: x,
-      y: y,
-      dx: dirx + mouse.dx,
-      dy: diry + mouse.dy,
-      size: s
-    })
-  }
-
-}
-
-
-
-function drawsplat(arr) {
-
-  var i = arr.length
-  while (i--) {
-    var t = arr[i];
-    var x = t.x,
-      y = t.y,
-      s = t.size;
-    circle(x, y, s, ctx)
-
-    t.dy -= options.gravity
-    t.x -= t.dx
-    t.y -= t.dy
-    t.size -= 0.05;
-
-    if (arr[i].size < 0.3 || Math.random() < options.consistency) {
-      circle(x, y, s, ctx)
-      arr.splice(i, 1)
-    }
-  }
-  //ctx.drawImage(shadow, 0, 0)
-}
-
-
-function circle(x, y, s, c) {
-  c.beginPath()
-  c.arc(x, y, s * 5, 0, 2 * Math.PI, false);
-  c.fill()
-  c.closePath()
-}
-
-/*
-
-canvas.onclick = function(e) {
-    
-
-
-    
-    playRaygunSound();
-    let rayGun = document.getElementById('raygun');
-    rayGun.src = "coloredraygunfire.png"
-
-
-    setTimeout(function() {
-        rayGun.src = "coloredraygun.png"
-      }, 100)
-
-
-  if (!focused) {
-    focused = true;
-    drawloop();
-  } else {
-    clicked = true;
-
-    
-      setTimeout(function() {
-        clicked = false
-      }, 100)
-    
-
-    mouse.x = e.pageX
-    mouse.y = e.pageY
-
-    var greentone = '#c1c121'
-    
-    ctx.fillStyle = greentone;
-
-    splat(mouse.x, mouse.y, items)
-    
-    setTimeout(function() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-      }, 1000)
-    
-
-  }
-}
-*/
 
 canvas.onmousemove = function(e) {
 
@@ -247,11 +139,10 @@ canvas.onmousemove = function(e) {
       py: mouse.y
     }
     splat(mouse.x, mouse.y, items)
-
   }
 }
 
-canvas.addEventListener('mousemove', weaponMover);
+
 
 
 

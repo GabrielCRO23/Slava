@@ -1,6 +1,4 @@
-//Needed to redefine these variables due to scoping issues with importing and exporting, not sure how to get around not redefining them
-let ctx = canvas.getContext('2d');
-let collisionCtx = collisionCanvas.getContext('2d')
+//Sprite object constructor
 
 class Orc {
     constructor(){
@@ -22,6 +20,7 @@ class Orc {
         this.stepInterval = 100;
         this.randomColors = [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255) ] 
         this.color = 'rgb(' + this.randomColors[0] + ',' + this.randomColors[1] + ',' + this.randomColors[2] + ')'; //Each sprite gets a randomized value of 3 RGB values, which will be matched to mark for deletion as an onclick event listener
+        //if (kills == 10) this.directionX = this.directionX + 10
     }  
     update(deltaTime){
         if (this.y < 0 || this.y > canvas.height - this.height){
