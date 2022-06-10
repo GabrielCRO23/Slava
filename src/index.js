@@ -7,6 +7,7 @@ import { drawloop } from "./splatEffect/drawLoop"
 import { splat } from "./splatEffect/splat"
 import { Orc } from "./spriteConstructor"
 import { updateScore } from "./updateScore"
+import { playBackground } from "./weaponEffect/playBackground"
 
 
 
@@ -64,7 +65,6 @@ canvas.addEventListener('mousemove', weaponMover);
 window.addEventListener('click', function(e){
   playRaygunSound();
   muzzleFire();
-  
   const detectPixelColor = collisionCtx.getImageData(e.x, e.y, 1, 1)
   const pc = detectPixelColor.data;
   orcs.forEach(object => {
@@ -138,7 +138,7 @@ startGameButton.addEventListener('click', function(){
   collisionCanvas.style.display = "block";
   startGameContainer.style.display = "none";
   rayGun.style.display = "flex"
-
+  playBackground();
 })
 
 

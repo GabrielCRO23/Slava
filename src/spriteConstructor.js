@@ -37,7 +37,10 @@ class Orc {
             else this.frame++;  
             this.timeSinceStep = 0;
         } 
-        if (this.x < 0 - this.width) gameEnd = true;
+        if (this.x < 0 - this.width){
+            gameEnd = true;
+            kills = 0;
+        } 
     }
     draw(){
         collisionCtx.fillStyle = this.color;
