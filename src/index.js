@@ -128,10 +128,19 @@ function animate(timestamp) {
 //animate(0)
 
 
-let startGameButton = document.getElementById('restartButton')
+let startGameButton = document.getElementById('startGameButton')
+let startGameContainer = document.querySelector('.startGame')
+let rayGun = document.getElementById('raygun');
+
 startGameButton.addEventListener('click', function(){
-  console.log('hi')
+  animate(0)
+  canvas.style.display = "block";
+  collisionCanvas.style.display = "block";
+  startGameContainer.style.display = "none";
+  rayGun.style.display = "flex"
+
 })
+
 
 canvas.onmousemove = function(e) {
   if (clicked) {

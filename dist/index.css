@@ -1,3 +1,8 @@
+@font-face {
+    font-family: Alien;
+    src: url(alien.regular.ttf); 
+  }
+
 body {
     margin:0;
     padding:0;
@@ -45,35 +50,62 @@ body {
 }
 
 .startGame {
+    font-family: Alien;
     display: flex;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, .9);
+    background-color: rgba(0, 0, 0, .8);
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: white;
     font-size: 5rem;
-    border-radius: 14px;
+    
 
 }
 
 .startGame button {
     
+    padding-top: 0.1em;
+    font-family: Alien;
     font-size: 3rem;
-    background-image: linear-gradient(to right top, #051937, #004770, #007c9e, #00b4b8, #12ebbb);
-    border: 1px solid black;
+    background: white;
     margin: 1em;
     cursor: pointer;
     border-radius: 14px;
 }
 
+.startGame button:hover {
+    transform: scale(1.1)
+}
+
 .info {
     display: flex;
     font-size: 2rem;
+    margin: 1em;
+}
+
+.info2 {
+    display: flex;
+    font-size: 1.75rem;
+}
+
+.credits {
+    
+    display: flex;
+    font-size: 0.75rem;
+    margin-top: 2em;
+}
+
+label {
+    font-size: 0.75rem;
+}
+
+a {
+    text-decoration: none;
 }
 
 
