@@ -1,12 +1,11 @@
+//Created by Gabriel with the help of online resources
+
 import { weaponMover } from "./weaponEffect/weaponMover";
 import { playRaygunSound} from "./weaponEffect/raygunSound"
 import { muzzleFire } from "./weaponEffect/muzzleFire"
-
 import { drawloop } from "./splatEffect/drawLoop"
 import { splat } from "./splatEffect/splat"
-
 import { Orc } from "./spriteConstructor"
-
 import { updateScore } from "./updateScore"
 
 
@@ -32,6 +31,7 @@ ctx.font = '50px Impact';
 
 window.focused = false;
 window.clicked = false;
+window.gameEnd = false;
 
 window.mouse = {
   x: 0,
@@ -55,12 +55,13 @@ let orcInterval = 500;
 let lastTime = 0;
 let orcs = [];
 
+
 canvas.addEventListener('mousemove', weaponMover);
 
 
 
-window.addEventListener('click', function(e){
 
+window.addEventListener('click', function(e){
   playRaygunSound();
   muzzleFire();
   
@@ -102,6 +103,8 @@ window.addEventListener('click', function(e){
 })
 
 
+
+
 function animate(timestamp) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     collisionCtx.clearRect(0, 0, canvas.width, canvas.height);
@@ -119,17 +122,21 @@ function animate(timestamp) {
     [...orcs].forEach(object => object.draw());
     orcs = orcs.filter(object => !object.markedForDeletion)
     
-    requestAnimationFrame(animate);
+    if (!gameEnd) requestAnimationFrame(animate);
 }
 
-animate(0)
+//animate(0)
 
+
+let startGameButton = document.getElementById('restartButton')
+startGameButton.addEventListener('click', function(){
+  console.log('hi')
+})
 
 canvas.onmousemove = function(e) {
-
   if (clicked) {
-    var distx = (mouse.px - mouse.x),
-      disty = (mouse.py - mouse.y);
+    let distx = (mouse.px - mouse.x);
+    let disty = (mouse.py - mouse.y);
     mouse = {
       x: e.pageX,
       y: e.pageY,

@@ -1,10 +1,9 @@
-let ctx = canvas.getContext('2d');
-
+//Writes & updates the text
 
 function updateScore(){
     
     ctx.fillStyle = "white";
-    ctx.fillText('Kills: ' + kills, canvas.width/2, canvas.height/8)
+    ctx.fillText('Busts: ' + kills, canvas.width/2, canvas.height/8)
 }
 
 export { updateScore }
