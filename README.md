@@ -18,6 +18,7 @@ Must install webpack for this code to run
 
 
 Some issues are:
+
 -Lag spikes, especially with the splatter effect enabled
 
 -Using window to define variables - I did it that way so they can be globally accessed by the seperate JS files but it may be a part of the lag issues
