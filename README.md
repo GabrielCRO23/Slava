@@ -36,5 +36,7 @@ Ghost drawings are from [Bevouliin](https://bevouliin.com/spooky-ghost-sprites-f
 
 Background soundtrack is from [YouTube](https://www.youtube.com/watch?v=n4A_F5SXmgo)
 
+Alien font is from [1001Fonts](https://www.1001fonts.com/alien-fonts.html) (I think)
+
 
 
