@@ -3,7 +3,7 @@ Made by Gabriel Hrastovic. Some code from online resources was used. This is my 
 
 Must install webpack for this code to run
 
- This project took me roughly 70 hours to complete, some notable features are:
+ This project took me roughly 70 hours to complete, **some notable features are:**
 
 -An interactive canvas, with sprites generated from an object constructor, via requestAnimationFrame and delta timestamps for consistency between different computers
 
@@ -17,7 +17,7 @@ Must install webpack for this code to run
 
 
 
-Some issues are:
+**Some issues are:**
 
 -Lag spikes, especially with the splatter effect enabled
 
