@@ -1,5 +1,7 @@
 import { tryAgain } from "./tryAgain"
 
+
+
 class Orc {
     constructor(){
         this.spriteWidth = 396; //Width of the individual sprite from the sprite sheet

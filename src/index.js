@@ -51,12 +51,19 @@ window.options = {
   consistency: 0.04,
 }
 
-let removeEfx = document.getElementById('removeEfx')
 
+let removeEfx = document.getElementById('removeEfx')
 let timeToNextOrc = 0;
 let orcInterval = 500;
 let lastTime = 0;
 let orcs = [];
+
+
+window.localStorageName = "crackalien";
+window.highestScore = 0;
+
+
+
 
 
 canvas.addEventListener('mousemove', weaponMover);
