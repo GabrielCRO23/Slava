@@ -1,5 +1,5 @@
 # Slava
-[Google](www.google.com)
+[Github](https://pages.github.com/)
 
 Made by Gabriel Hrastovic
 
