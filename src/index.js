@@ -11,8 +11,6 @@ import { playBackground } from "./weaponEffect/playBackground"
 
 
 
-
-
 window.canvas = document.getElementById('canvas');
 window.ctx = canvas.getContext('2d');
 window.collisionCanvas = document.getElementById('collisionCanvas');
@@ -62,7 +60,7 @@ let orcs = [];
 window.localStorageName = "ghostbusters";
 window.highestScore = 0;
 
-
+const mediaQuery = window.matchMedia('(max-width: 1200px)')
 
 
 
@@ -145,7 +143,28 @@ let startGameContainer = document.querySelector('.startGame')
 let tryAgainButton = document.getElementById('tryAgainButton')
 let tryAgainContainer = document.querySelector('.tryAgain')
 
+
+
+
 tryAgainButton.addEventListener('click', function(){
+  if (mediaQuery.matches) {
+  focused = false;
+  clicked = false;
+  gameEnd = false;
+  timeToNextOrc = 0;
+  orcInterval = 500;
+  lastTime = 0;
+  items = [];
+  orcs = [];
+  kills = 0
+  canvas.style.display = "block";
+  collisionCanvas.style.display = "block";
+  tryAgainContainer.style.display = "none";
+  rayGun.style.display = "none"
+  animate(0)
+  } else {
+
+  
   focused = false;
   clicked = false;
   gameEnd = false;
@@ -160,9 +179,19 @@ tryAgainButton.addEventListener('click', function(){
   tryAgainContainer.style.display = "none";
   rayGun.style.display = "flex"
   animate(0)
+}
 })
 
 startGameButton.addEventListener('click', function(){
+  if (mediaQuery.matches) {
+    canvas.style.display = "block";
+  collisionCanvas.style.display = "block";
+  startGameContainer.style.display = "none";
+  rayGun.style.display = "none"
+  
+  playBackground();
+  animate(0)
+  } else {
   
   canvas.style.display = "block";
   collisionCanvas.style.display = "block";
@@ -171,6 +200,7 @@ startGameButton.addEventListener('click', function(){
   
   playBackground();
   animate(0)
+}
 })
 
 
@@ -190,6 +220,29 @@ canvas.onmousemove = function(e) {
   }
 }
 
+
+//var orientation = window.screen.orientation;
+let screenRotation = document.querySelector('.screenRotation')
+//console.log(orientation.type)
+
+if (screen.orientation.type !== 'landscape-primary'){
+  console.log('Turn your screen!')
+  startGameContainer.style.display = "none"
+  screenRotation.style.display = "flex";
+}
+
+console.log(screen.orientation)
+screen.orientation.onchange = function(e) { 
+  if (screen.orientation.type !== 'landscape-primary'){
+    console.log('Incorrect orientation')
+    startGameContainer.style.display = "none"
+    screenRotation.style.display = "flex";
+  } else if (screen.orientation.type === 'landscape-primary'){
+    console.log('correct orientation')
+    screenRotation.style.display = "none";
+    startGameContainer.style.display ="flex"
+  }
+ }
 
 
 
