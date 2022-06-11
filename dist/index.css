@@ -13,6 +13,7 @@ body {
      background-image: url("backgroundrescaled.jpg");
     background-attachment: fixed;
     background-size: cover;
+    overflow-y: hidden;
     overflow-x: hidden;
      
 }
@@ -82,6 +83,39 @@ body {
     transform: scale(1.1)
 }
 
+.tryAgain {
+    font-family: Alien;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .8);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 5rem;
+    
+
+}
+
+.tryAgain button {
+    
+    padding-top: 0.1em;
+    font-family: Alien;
+    font-size: 3rem;
+    background: white;
+    margin: 1em;
+    cursor: pointer;
+    border-radius: 14px;
+}
+
+.tryAgain button:hover {
+    transform: scale(1.1)
+}
+
 .info {
     display: flex;
     font-size: 2rem;
@@ -89,6 +123,12 @@ body {
 }
 
 .info2 {
+    display: flex;
+    font-size: 1.75rem;
+}
+
+
+.score {
     display: flex;
     font-size: 1.75rem;
 }

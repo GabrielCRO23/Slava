@@ -18,6 +18,8 @@ window.ctx = canvas.getContext('2d');
 window.collisionCanvas = document.getElementById('collisionCanvas');
 window.collisionCtx = collisionCanvas.getContext('2d');
 
+window.rayGun = document.getElementById('raygun');
+
 window.items = [];
 window.kills = 0;
 window.tone = '#ffffff'
@@ -27,7 +29,7 @@ collisionCanvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-ctx.font = '50px Impact';
+ctx.font = '40px Alien';
 
 
 window.focused = false;
@@ -49,7 +51,7 @@ window.options = {
   consistency: 0.04,
 }
 
-
+let removeEfx = document.getElementById('removeEfx')
 
 let timeToNextOrc = 0;
 let orcInterval = 500;
@@ -62,7 +64,8 @@ canvas.addEventListener('mousemove', weaponMover);
 
 
 
-window.addEventListener('click', function(e){
+canvas.addEventListener('click', function(e){
+  
   playRaygunSound();
   muzzleFire();
   const detectPixelColor = collisionCtx.getImageData(e.x, e.y, 1, 1)
@@ -71,7 +74,7 @@ window.addEventListener('click', function(e){
     if (object.randomColors[0] === pc[0] && object.randomColors[1] === pc[1] && object.randomColors[2] === pc[2]){
       object.markedForDeletion = true;
       kills++
-  
+    if (removeEfx.checked == false){
     if (!focused) {
       focused = true;
       drawloop();
@@ -99,6 +102,7 @@ window.addEventListener('click', function(e){
   
     }
     }
+  }
   })
 })
 
@@ -130,20 +134,41 @@ function animate(timestamp) {
 
 let startGameButton = document.getElementById('startGameButton')
 let startGameContainer = document.querySelector('.startGame')
-let rayGun = document.getElementById('raygun');
+
+let tryAgainButton = document.getElementById('tryAgainButton')
+let tryAgainContainer = document.querySelector('.tryAgain')
+
+tryAgainButton.addEventListener('click', function(){
+  focused = false;
+  clicked = false;
+  gameEnd = false;
+  timeToNextOrc = 0;
+  orcInterval = 500;
+  lastTime = 0;
+  items = [];
+  orcs = [];
+  kills = 0
+  canvas.style.display = "block";
+  collisionCanvas.style.display = "block";
+  tryAgainContainer.style.display = "none";
+  rayGun.style.display = "flex"
+  animate(0)
+})
 
 startGameButton.addEventListener('click', function(){
-  animate(0)
+  
   canvas.style.display = "block";
   collisionCanvas.style.display = "block";
   startGameContainer.style.display = "none";
   rayGun.style.display = "flex"
+  
   playBackground();
+  animate(0)
 })
 
 
 canvas.onmousemove = function(e) {
-  if (clicked) {
+  if (clicked && removeEfx.checked == false) {
     let distx = (mouse.px - mouse.x);
     let disty = (mouse.py - mouse.y);
     mouse = {
