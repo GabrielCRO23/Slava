@@ -4,9 +4,13 @@ Made by Gabriel Hrastovic. Some code from online resources was used. This is my 
 Must install webpack for this code to run
 
  This project took me roughly 70 hours to complete, some notable features are:
+
 -An interactive canvas, with sprites generated from an object constructor, via requestAnimationFrame and delta timestamps for consistency between different computers
+
 -Mobile responsiveness
+
 -Local storage for high scores
+
 -Clean & modulated JavaScript code for easy access to individual components - unlike my Adventure Game project which was really difficult to work on as the single JS file became 1000+ lines of unreadable code
 
 Some issues are:
