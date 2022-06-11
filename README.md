@@ -13,8 +13,13 @@ Must install webpack for this code to run
 
 -Clean & modulated JavaScript code for easy access to individual components - unlike my Adventure Game project which was really difficult to work on as the single JS file became 1000+ lines of unreadable code
 
+
+
+
+
 Some issues are:
 -Lag spikes, especially with the splatter effect enabled
+
 -Using window to define variables - I did it that way so they can be globally accessed by the seperate JS files but it may be a part of the lag issues
 
 
