@@ -59,7 +59,7 @@ let lastTime = 0;
 let orcs = [];
 
 
-window.localStorageName = "crackalien";
+window.localStorageName = "ghostbusters";
 window.highestScore = 0;
 
 
