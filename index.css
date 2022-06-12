@@ -128,7 +128,7 @@ body {
 
 .info2 {
     display: flex;
-    
+    margin: 1em;
 }
 
 
@@ -165,10 +165,11 @@ body {
 
 
 .credits {
-    
+    position: absolute;
     display: flex;
     
     margin-top: 2em;
+    bottom: 0;
 }
 
 
@@ -200,8 +201,25 @@ img {
 
 
 @media (max-width: 1000px){
+    .startGame button {
+        font-size: 30px;
+    }
     .checkboxContainer {
         font-size: 8px;
+    }
+
+    .info {
+        font-size: 12px;
+    }
+
+    .info2 {
+        font-size: 12px;
+    }
+
+    .credits {
+        position: absolute;
+        font-size: 8px;
+        bottom: 0;
     }
 }
 
