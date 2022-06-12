@@ -9,6 +9,7 @@ import { Orc } from "./spriteConstructor"
 import { updateScore } from "./updateScore"
 import { playBackground } from "./weaponEffect/playBackground"
 
+window.scrollTo(0,1);
 
 
 window.canvas = document.getElementById('canvas');
@@ -60,7 +61,7 @@ let orcs = [];
 window.localStorageName = "ghostbusters";
 window.highestScore = 0;
 
-const mediaQuery = window.matchMedia('(max-width: 1200px)')
+window.mediaQuery = window.matchMedia('(max-width: 1200px)')
 
 
 
@@ -225,27 +226,22 @@ canvas.onmousemove = function(e) {
 let screenRotation = document.querySelector('.screenRotation')
 //console.log(orientation.type)
 
-if (screen.orientation.type !== 'landscape-primary'){
-  console.log('Turn your screen!')
-  startGameContainer.style.display = "none"
-  screenRotation.style.display = "flex";
+function startGame(){
+  if (screen.orientation.type !== 'landscape-primary'){
+    screenRotation.style.display = "flex";
 }
+}
+
+
+
 
 console.log(screen.orientation)
 screen.orientation.onchange = function(e) { 
   if (screen.orientation.type !== 'landscape-primary'){
-    console.log('Incorrect orientation')
-    startGameContainer.style.display = "none"
     screenRotation.style.display = "flex";
-  } else if (screen.orientation.type === 'landscape-primary'){
-    console.log('correct orientation')
+  } else {
     screenRotation.style.display = "none";
-    startGameContainer.style.display ="flex"
   }
- }
+  }
 
-
-
-
-
-
+  startGame();
