@@ -3,7 +3,7 @@ Made by Gabriel Hrastovic. Some code from online resources was used. This is my 
 
 Must install webpack for this code to run
 
- This project took me roughly 70 hours to complete, **some notable features are:**
+ This project took me roughly 70 hours of work to complete, **some notable features are:**
 
 -An interactive canvas, with sprites generated from an object constructor, via requestAnimationFrame and delta timestamps for consistency between different computers
 
@@ -19,9 +19,13 @@ Must install webpack for this code to run
 
 **Some issues are:**
 
--Lag spikes, especially with the splatter effect enabled
+-Occasional lag spikes, especially with the splatter effect enabled
 
 -Using window to define variables - I did it that way so they can be globally accessed by the seperate JS files but it may be a part of the lag issues
+
+-The code isn't actually that clean
+
+-On mobile, not sure why but the splatter effect makes only one "bubble" instead of multiple.
 
 
 Splatter effect is mutated from this [JSfiddle](https://jsfiddle.net/decx/Ca9Y7/)
