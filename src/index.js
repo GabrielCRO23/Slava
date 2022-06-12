@@ -253,6 +253,6 @@ screen.orientation.onchange = function(e) {
     collisionCanvas.width = window.innerWidth;
     collisionCanvas.height = window.innerHeight;
   }
-  
+
   resize()
   window.addEventListener('resize', resize)
