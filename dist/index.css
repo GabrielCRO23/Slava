@@ -47,6 +47,9 @@ body {
   
     display: none;
     opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
     
 }
 
@@ -196,7 +199,7 @@ img {
 }
 
 
-@media (max-width: 1200px){
+@media (max-width: 1000px){
     .checkboxContainer {
         font-size: 8px;
     }
