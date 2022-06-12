@@ -42,5 +42,9 @@ Background soundtrack is from [YouTube](https://www.youtube.com/watch?v=n4A_F5SX
 
 Alien font is from [1001Fonts](https://www.1001fonts.com/alien-fonts.html) (I think)
 
+_______________________
+
+The game was called "Slava" & sprites are called "orcs" because the original project was supposed to be a Ukraine-inspired game, but it was a little bit too violent to put on a resume - so the bloodsplatter effect and sprites selected were made to be cartoony.
+
 
 
