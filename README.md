@@ -1,5 +1,5 @@
 # Slava
-Made by Gabriel Hrastovic. Some code from online resources was used. This is my first canvas project.
+Made by Gabriel Hrastovic. Some code from online teaching resources was used. This is my first canvas project.
 
 Must install webpack for this code to run
 
