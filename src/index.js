@@ -9,7 +9,7 @@ import { Orc } from "./spriteConstructor"
 import { updateScore } from "./updateScore"
 import { playBackground } from "./weaponEffect/playBackground"
 
-window.scrollTo(0,1);
+
 
 
 window.canvas = document.getElementById('canvas');
