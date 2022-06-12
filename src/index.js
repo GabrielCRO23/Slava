@@ -250,6 +250,8 @@ screen.orientation.onchange = function(e) {
   const resize = () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    collisionCanvas.width = window.innerWidth;
+    collisionCanvas.height = window.innerHeight;
   }
   
   resize()
