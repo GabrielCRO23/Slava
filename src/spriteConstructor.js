@@ -11,7 +11,7 @@ class Orc {
         this.height = this.spriteHeight * this.sizeModifier / 3
         this.x = canvas.width
         this.y = Math.random() * (canvas.height - this.height);
-        this.directionX = (Math.random() * 2 + 2) + (0.5 * Math.floor(kills / 10));
+        this.directionX = (Math.random() + 1) + (0.5 * Math.floor(kills / 10));
         this.directionY = Math.random() * 2; //Vertical directional speed
         this.markedForDeletion = false; //If marked true, sprite is deleted
         this.image = new Image();
