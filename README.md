@@ -19,13 +19,13 @@ Must install webpack for this code to run
 
 **Some issues are:**
 
--Occasional lag spikes, especially with the splatter effect enabled
-
--Using window to define variables - I did it that way so they can be globally accessed by the seperate JS files but it may be a part of the lag issues
+-Using window to define variables - I did it that way so they can be globally accessed by the seperate JS files
 
 -The code isn't actually that clean
 
 -On mobile, not sure why but the splatter effect makes only one "bubble" instead of multiple.
+
+-The sprites are much faster on faster computers
 
 
 Splatter effect is mutated from this [JSfiddle](https://jsfiddle.net/decx/Ca9Y7/)
