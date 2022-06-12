@@ -58,6 +58,7 @@ let lastTime = 0;
 let orcs = [];
 
 
+
 window.localStorageName = "ghostbusters";
 window.highestScore = 0;
 
@@ -245,3 +246,11 @@ screen.orientation.onchange = function(e) {
   }
 
   startGame();
+
+  const resize = () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  
+  resize()
+  window.addEventListener('resize', resize)
