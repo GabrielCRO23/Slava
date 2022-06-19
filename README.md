@@ -1,7 +1,7 @@
 # Slava
 Made by Gabriel Hrastovic. Some code from online teaching resources was used. This is my first canvas project.
 
-Must install webpack for this code to run
+Must install webpack to edit this code
 
  This project took me roughly 70 hours of work to complete, **some notable features are:**
 
