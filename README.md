@@ -23,7 +23,7 @@ Made by Gabriel Hrastovic. Some code from online teaching resources was used. Th
 
 -On mobile, not sure why but the splatter effect makes only one "bubble" instead of multiple.
 
--The sprites are much faster on faster computers (it might have something to do with monitor hertz rate)
+-The sprites are much faster on faster computers (it might have something to do with monitor frame rate)
 
 
 Splatter effect is mutated from this [JSfiddle](https://jsfiddle.net/decx/Ca9Y7/)
