@@ -1,9 +1,10 @@
 # Slava
-Made by Gabriel Hrastovic. Some code from online teaching resources was used. This is my first canvas project.
 
-Must install webpack to edit this code
+Made by Gabriel Hrastovic. Some code from online resources was used for the sprite and deltatime logic. This is my first canvas project.
 
- This project took me roughly 70 hours of work to complete, **some notable features are:**
+You can view the site live on : https://gabrielcro23.github.io/Slava/
+
+This project took me roughly 70 hours:
 
 -An interactive canvas, with sprites generated from an object constructor, via requestAnimationFrame and delta timestamps for consistency between different computers
 
@@ -11,22 +12,15 @@ Must install webpack to edit this code
 
 -Local storage for high scores
 
--Clean & modulated JavaScript code for easy access to individual components - unlike my Adventure Game project which was really difficult to work on as the single JS file became 1000+ lines of unreadable code
-
-
-
-
-
 **Some issues are:**
 
--Using window to define variables - I did it that way so they can be globally accessed by the seperate JS files
+-Using window to define variables
 
 -The code isn't actually that clean
 
 -On mobile, not sure why but the splatter effect makes only one "bubble" instead of multiple.
 
 -The sprites are much faster on faster computers
-
 
 Splatter effect is mutated from this [JSfiddle](https://jsfiddle.net/decx/Ca9Y7/)
 
@@ -41,10 +35,3 @@ Ghost drawings are from [Bevouliin](https://bevouliin.com/spooky-ghost-sprites-f
 Background soundtrack is from [YouTube](https://www.youtube.com/watch?v=n4A_F5SXmgo)
 
 Alien font is from [1001Fonts](https://www.1001fonts.com/alien-fonts.html) (I think)
-
-_______________________
-
-The game was called "Slava" & sprites are called "orcs" because the original project was supposed to be a Ukraine-inspired game, but it was a little bit too violent to put on a resume - so the bloodsplatter effect and sprites selected were made to be cartoony.
-
-
-
